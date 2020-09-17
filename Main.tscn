@@ -1,0 +1,322 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Camera.gd" type="Script" id=1]
+[ext_resource path="res://RobotoMono[wght].ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Look.gd" type="Script" id=4]
+[ext_resource path="res://player.gd" type="Script" id=5]
+
+[sub_resource type="PrismMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.580392, 0.980392, 0.333333, 1 )
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="CylinderShape" id=4]
+
+[sub_resource type="CylinderMesh" id=5]
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.0470588, 0.901961, 0.968627, 1 )
+
+[sub_resource type="CubeMesh" id=7]
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.184314, 0.541176, 1, 1 )
+
+[sub_resource type="ConcavePolygonShape" id=9]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 32
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="Environment" id=11]
+background_mode = 1
+background_color = Color( 0.603922, 0.827451, 1, 1 )
+background_energy = 6.79
+ambient_light_color = Color( 0.403922, 0.435294, 0.443137, 1 )
+glow_enabled = true
+glow_intensity = 8.0
+glow_strength = 0.78
+glow_bloom = 0.1
+
+[node name="Main" type="Spatial"]
+
+[node name="player" type="KinematicBody" parent="."]
+script = ExtResource( 5 )
+
+[node name="arrow" type="Spatial" parent="player"]
+transform = Transform( 0.508692, 0, 0, 0, 0.508692, 0, 0, 0, 0.508692, 0, 1.46, 0 )
+script = ExtResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="player/arrow"]
+transform = Transform( -0.7902, 2.18557e-07, 3.58781e-15, 0, -4.37114e-08, 0.375553, 1.72703e-07, 1, 1.64159e-08, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="player/arrow/MeshInstance"]
+transform = Transform( 0.456499, -1.42109e-14, 1.76697e-08, -3.55271e-15, 1.08472, -1.36256e-08, -1.43183e-08, 2.62358e-08, 0.56335, 2.84217e-14, -1.9258, 0 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 2 )
+
+[node name="Camroot" type="Spatial" parent="player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.557387, 0 )
+script = ExtResource( 1 )
+
+[node name="h" type="Spatial" parent="player/Camroot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.49558, 0 )
+
+[node name="v" type="Spatial" parent="player/Camroot/h"]
+
+[node name="Camera" type="ClippedCamera" parent="player/Camroot/h/v"]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 1.77397e-07, 0, -6.32815 )
+
+[node name="CollisionShape" type="CollisionShape" parent="player"]
+transform = Transform( 0.680946, 0, 0, 0, 0.680946, 0, 0, 0, 0.680946, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="mesh" type="MeshInstance" parent="player/CollisionShape"]
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
+
+[node name="targets" type="Spatial" parent="."]
+
+[node name="0" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.391384, 0, 11.9402 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/0"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/0/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="1" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.68241, -7.96782, 6.48467 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/1/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="2" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0858, -1.34489, 6.48467 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/2/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="3" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0858, -1.34489, -5.55292 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/3/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="4" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.30188, -7.39823, -5.55292 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/4/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="5" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.20658, 10.2084, -4.00907 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/5/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="6" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6786, -7.16071, -5.35789 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/6/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="7" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2428, -4.55717, -1.58094 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/7"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/7/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="8" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93826, -11.2661, 12.8409 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/8"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/8/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="9" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65877, 9.20929, 14.0099 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/9"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/9/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="10" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9661, 5.98561, -4.44898 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/10"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/10/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="11" type="MeshInstance" parent="targets"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5617, 5.98561, -14.5634 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="StaticBody" type="StaticBody" parent="targets/11"]
+
+[node name="CollisionShape" type="CollisionShape" parent="targets/11/StaticBody"]
+shape = SubResource( 9 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.771935, -0.399905, -0.494159, -0.348082, 0.916354, -0.197826, 0.531936, 0.0192988, -0.846565, 0, 8.52998, 0 )
+light_color = Color( 0.580392, 0.580392, 0.580392, 1 )
+light_energy = 3.32
+
+[node name="DirectionalLight2" type="DirectionalLight" parent="."]
+transform = Transform( 0.976469, -0.110753, -0.185045, 0.19726, 0.805475, 0.558837, 0.0871561, -0.582189, 0.808368, 0, 8.52998, 0 )
+light_color = Color( 0.580392, 0.580392, 0.580392, 1 )
+light_energy = 0.77
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+visible = false
+margin_left = 55.0
+margin_top = 23.0
+margin_right = 1385.0
+margin_bottom = 340.0
+rect_scale = Vector2( 0.52108, 0.52108 )
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_as_outline = 8
+text = "WASD to move, Space to move up, Ctrl to move down.
+For Arrow target Press 1/2/3/4/5 to switch/toggle:
+
+1. Direct: Like look_at() but uses positive z-axis
+2. Smooth - Follow: Non linear, Follows the target, no lock on
+3. Smooth - Lock: Non linear, locks on at end, not good for mecha feel
+4. Constant - Static: Linear, simpler code, for static target/player, good for static mechanical stuff
+5. Constant - Moving: Linear, more complex code, works with moving target/player, good for moving mecha"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Control"]
+margin_left = 4.0
+margin_top = 241.999
+margin_right = 1367.0
+margin_bottom = 438.999
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 8
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Control"]
+margin_left = 4.0
+margin_top = 242.0
+margin_right = 289.0
+margin_bottom = 439.0
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 8
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control"]
+margin_left = 872.0
+margin_top = 642.0
+margin_right = 1328.0
+margin_bottom = 719.0
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 0, 0.741176, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 8
+text = "For Camera target toggle
+Press F"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="arrow" type="Label" parent="Control"]
+margin_left = 37.0341
+margin_top = 655.336
+margin_right = 436.03
+margin_bottom = 852.336
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 0, 1, 0.419608, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 8
+text = "Arrow Target:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cam" type="Label" parent="Control"]
+margin_left = 868.099
+margin_top = 586.85
+margin_right = 1134.1
+margin_bottom = 663.85
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 0, 0.741176, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 8
+text = "Camera target:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 11 )
